@@ -1,0 +1,28 @@
+version: "2"
+services:
+  haproxy:
+    image: haproxy
+    container_name: haproxy
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - "./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    links:
+      - server1
+      - server2
+
+  server1:
+    image: httpd:2.4
+    ports:
+      - 80
+    volumes:
+      - "./servers/server1:/usr/local/apache2/htdocs"
+
+  server2:
+    image: httpd:2.4
+    ports:
+      - 80
+    volumes:
+      - "./servers/server2:/usr/local/apache2/htdocs"
+
